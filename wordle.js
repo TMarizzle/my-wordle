@@ -6,10 +6,3 @@ let currentGuess = [];
 let nextLetter = 0;
 let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(wordToGuess);
-currentGuess = prompt(`The word to guess is ${wordToGuess}`);
-
-if (currentGuess == wordToGuess){
-  alert('You guessed correctly!');
-} else {
-  alert('Wrong!');
-}
