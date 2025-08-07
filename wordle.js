@@ -6,3 +6,16 @@ let currentGuess = [];
 let nextLetter = 0;
 let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(wordToGuess);
+currentGuess = prompt("Enter a 5 letter word:");
+
+while (currentGuess !== wordToGuess && guessRemain > 0){
+    currentGuess = prompt("Incorrect, try again: ");
+    if (currentGuess !== wordToGuess){
+        alert(`Sorry, try again. (Hint, the word starts with: ${wordToGuess.slice(0)})`);
+        guessRemain--;
+    } else {
+        alert ("You found the word in time!");
+    }
+}
+
+console.log(`You finished the game with ${guessRemain} guesses left.`);
