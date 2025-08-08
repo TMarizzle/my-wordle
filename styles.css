@@ -1,17 +1,26 @@
-#row1 {
-    width: 50px;
-    height: 50px;
-    border: 1px solid red;
-}
-
-.game-board {
-    border: 1px solid blue;
-    display: flex;
-    flex-direction: row;
+* {
+    background-color:antiquewhite;
 }
 
 input {
-    border: 3px solid black;
-    width: 20px;
-    height: 40px;
+    border-radius: 10px;
+    display: block;
+    height: 3em;
+    width: 100%;
+    max-width: 4em;
+    font-size: 2em;
+    text-align: center;
+    box-sizing: border-box;
+    border: 3px solid #8d8d8d;
+}
+table {
+    margin: 25px;
+    padding: 30px;
+    width: auto;
+    max-width: 100%;
+    position: absolute;
+}
+
+tr {
+    margin: 5px;
 }
