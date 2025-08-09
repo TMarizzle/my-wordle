@@ -12,11 +12,22 @@ function getText() {
 
     cells.forEach(cell => {
         inputValues.push(cell.value);
-    });
-    console.log(inputValues);    
+    }); 
+    return inputValues;
+}
+
+function compare () {
+    //compare the user's guess to the wordToGuess
+    let userGuess = getText().join('');
+    console.log(`User input: ${userGuess}`);
+    if (userGuess == wordToGuess){
+        console.log("You win!");
+    } else {
+        console.log("Words don't match");
+    }
 }
 
 let submit = document.getElementById("submit");
 submit.addEventListener('click', () => {
-    getText();
+    compare();
 });
