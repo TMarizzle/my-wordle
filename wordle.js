@@ -2,23 +2,21 @@ const WORDS = ['which','there','their','about','would','these','other','words','
 
 const numGuesses = 5;
 let guessRemain = numGuesses;
-let currentGuess = [];
-let nextLetter = 0;
 let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(wordToGuess);
-// currentGuess = prompt("Enter a 5 letter word:");
-// const answer = wordToGuess.split("");
 
-// while (currentGuess !== wordToGuess && guessRemain > 0){
-//  //   currentGuess = prompt("Incorrect, try again: ");
-//     let answer = wordToGuess.split("");
-//     if (currentGuess !== wordToGuess){
-//         currentGuess = prompt("Incorrect, try again. (Hint, the next letter is: " + answer[nextLetter] + ")");
-//         nextLetter++;
-//         guessRemain--;
-//     } else {
-//         alert ("You found the word in time! The word was: " + wordToGuess);
-//     }
-// }
+function getText() {
+    const currentRow = document.getElementById('guessOne');
+    const cells = currentRow.querySelectorAll('input[type="text"');
+    const inputValues = [];
 
-// console.log(`You finished the game with ${guessRemain} guesses left.`);
+    cells.forEach(cell => {
+        inputValues.push(cell.value);
+    });
+    console.log(inputValues);    
+}
+
+let submit = document.getElementById("submit");
+submit.addEventListener('click', () => {
+    getText();
+});
