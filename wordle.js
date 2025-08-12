@@ -4,7 +4,7 @@ const numGuesses = 5;
 let guessRemain = numGuesses;
 let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(wordToGuess);
-
+//claire is really cool and this is a great comment!
 function getText() {
     const currentRow = document.getElementById('guessOne');
     const cells = currentRow.querySelectorAll('input[type="text"');
@@ -31,3 +31,26 @@ let submit = document.getElementById("submit");
 submit.addEventListener('click', () => {
     compare();
 });
+
+const container = document.getElementById("letters")[0];
+container.addEventListener('keyup', (e) => {
+    let target = e.target;
+    let maxLength = parseInt()
+});
+
+// container.onkeyup = function(e) {
+//     let target = e.srcElement;
+//     let maxLength = parseInt(target.attributes["maxlength"].value, 10);
+//     let myLength = target.value.length;
+//     if (myLength >= maxLength) {
+//         let next = target;
+//         while (next = next.nextElementSibling) {
+//             if (next == null)
+//                 break;
+//             if (next.tagName.toLowerCase() == "input") {
+//                 next.focus();
+//                 break;
+//             }
+//         }
+//     }
+// }
