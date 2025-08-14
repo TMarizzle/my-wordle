@@ -32,24 +32,26 @@ submit.addEventListener('click', () => {
     compare();
 });
 
-const container = document.querySelectorAll("input")[0];
-container.addEventListener('keyup', (e) => {
-    let target = e.target;
-    let maxLength = parseInt(target.attributes["maxlength"].value, 1);
-    let myLength = target.value.length;
-    console.log("you let go of a key in the table!");
-    if (myLength >= maxLength){
-        let next = target;
-        while (next = next.nextElementSibling){
-            if (next == null){
-                break;
-            }
-            if (next.tagName.toLowerCase() == "input"){
-                next.focus();
-                break;
+const allInputs = document.querySelectorAll("input");
+allInputs.forEach(input => {
+    input.addEventListener('keyup', (e) => {
+        let target = e.target;
+        let maxLength = parseInt(target.attributes["maxlength"].value, 10);
+        let myLength = target.value.length;
+        console.log("you let go of a key in the table!");
+        if (myLength >= maxLength){
+            let next = target;
+            while (next = next.nextElementSibling){
+                if (next == null){
+                    break;
+                }
+                if (next.tagName.toLowerCase() == "input"){
+                    next.focus();
+                    break;
+                }
             }
         }
-    }
+    });
 });
 
 // container.onkeyup = function(e) {
