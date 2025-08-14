@@ -6,6 +6,7 @@ let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(wordToGuess);
 //claire is really cool and this is a great comment!
 function getText() {
+    //Currently, only checks the first row. Need to update this to check the "current" row.
     const currentRow = document.getElementById('guessOne');
     const cells = currentRow.querySelectorAll('input[type="text"');
     const inputValues = [];
@@ -40,16 +41,27 @@ allInputs.forEach(input => {
         let target = e.target;
         let maxLength = parseInt(target.attributes["maxlength"].value, 10);
         let myLength = target.value.length;
-        if (myLength >= maxLength){
-            let next = target.parentElement.nextElementSibling;
-            if (next){
-                let nextInput = next.querySelector("input");
-                if (nextInput){
-                    nextInput.focus();
+        if (e.key === 'Backspace' && myLength === 0){
+            let previous = target.parentElement.previousElementSibling;
+            if (previous){
+                let previousInput = previous.querySelector("input");
+                if (previousInput){
+                    previousInput.focus();
                 }
-            } else {
-                console.log("you've reached the end of the row.");
             }
+        } else if (myLength >= maxLength){
+                let next = target.parentElement.nextElementSibling;
+                if (next){
+                    let nextInput = next.querySelector("input");
+                    if (nextInput){
+                        nextInput.focus();
+                    }
+                } else {
+                    console.log("you've reached the end of the row.");
+                }
+        }
+        if (e.key === 'Enter'){
+            compare();
         }
     });
 });
