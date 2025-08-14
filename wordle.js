@@ -53,20 +53,3 @@ allInputs.forEach(input => {
         }
     });
 });
-
-// container.onkeyup = function(e) {
-//     let target = e.srcElement;
-//     let maxLength = parseInt(target.attributes["maxlength"].value, 10);
-//     let myLength = target.value.length;
-//     if (myLength >= maxLength) {
-//         let next = target;
-//         while (next = next.nextElementSibling) {
-//             if (next == null)
-//                 break;
-//             if (next.tagName.toLowerCase() == "input") {
-//                 next.focus();
-//                 break;
-//             }
-//         }
-//     }
-// }
