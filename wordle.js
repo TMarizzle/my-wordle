@@ -32,23 +32,23 @@ submit.addEventListener('click', () => {
     compare();
 });
 
+//Add listener to each blank for keyup and move to next blank
+//once user has entered a letter
 const allInputs = document.querySelectorAll("input");
 allInputs.forEach(input => {
     input.addEventListener('keyup', (e) => {
         let target = e.target;
         let maxLength = parseInt(target.attributes["maxlength"].value, 10);
         let myLength = target.value.length;
-        console.log("you let go of a key in the table!");
         if (myLength >= maxLength){
-            let next = target;
-            while (next = next.nextElementSibling){
-                if (next == null){
-                    break;
+            let next = target.parentElement.nextElementSibling;
+            if (next){
+                let nextInput = next.querySelector("input");
+                if (nextInput){
+                    nextInput.focus();
                 }
-                if (next.tagName.toLowerCase() == "input"){
-                    next.focus();
-                    break;
-                }
+            } else {
+                console.log("you've reached the end of the row.");
             }
         }
     });
