@@ -15,28 +15,35 @@ function getText() {
 
     cells.forEach(cell => {
         inputValues.push(cell.value);
-    }); 
-    return inputValues;
+    });
+    let userWord = inputValues.join('');
+    return userWord;
 }
 
 function compare () {
     //compare the user's guess to the wordToGuess
-    let userGuess = getText().join('');
-    console.log(`User input: ${userGuess}`);
-    if (userGuess == wordToGuess && guessRemain > 0){
-        console.log("You win!");
-    } else if (userGuess !== wordToGuess){
-        console.log("Wrong word, try again.");
-        guessRemain--;
-        currentRow++;
-        console.log(`Guesses remaining: ${guessRemain}`);
+    let userGuess = getText();
+    //Make sure word exists, if it does then continue
+    let isWord = WORDS.includes(userGuess);
+    if (isWord){
+        console.log(`User input: ${userGuess}`);
+        if (userGuess == wordToGuess && guessRemain > 0){
+            console.log("You win!");
+        } else if (userGuess !== wordToGuess){
+            console.log("Wrong word, try again.");
+            guessRemain--;
+            currentRow++;
+            console.log(`Guesses remaining: ${guessRemain}`);
+        }
+    } else {
+        alert("Not a valid word, try again.");
     }
 }
 
 let submit = document.getElementById("submit");
 submit.addEventListener('click', () => {
     if (guessRemain > 0){
-    compare();
+        compare();
     }
 });
 
