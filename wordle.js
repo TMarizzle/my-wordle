@@ -30,10 +30,8 @@ function compare () {
         if (userGuess == wordToGuess && guessRemain > 0){
             console.log("You win!");
         } else if (userGuess !== wordToGuess){
-            console.log("Wrong word, try again.");
             guessRemain--;
             currentRow++;
-            console.log(`Guesses remaining: ${guessRemain}`);
         }
     } else {
         alert("Not a valid word, try again.");
