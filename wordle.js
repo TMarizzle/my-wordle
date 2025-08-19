@@ -30,15 +30,17 @@ function compare () {
         let currentLine = document.getElementById(`guess${currentRow}`);
         let currentLetter = currentLine.querySelectorAll('input');
         let tempAnswer = [...answer];
+        let isCorrect = [];
 
         for (let i=0; i < guess.length; i++){
             let letter = guess[i];
             let cell = currentLetter[i];
             console.log("Inside first for loop");
-            if (letter == tempAnswer[i]){
+            if (letter === tempAnswer[i]){
                 console.log("Change letter to green!");
                 cell.style.backgroundColor = "rgba(72, 197, 14, 1)";
                 tempAnswer[i] = null;
+                isCorrect[i] = true;
             }
         }
             
@@ -46,7 +48,7 @@ function compare () {
             let letter = guess[i];
             let cell = currentLetter[i];
             //If letter already exists, check if it's been marked correct
-            if (cell.style.backgroundColor !== "rgba(72, 197, 14, 1)"){
+            if (!isCorrect[i]){
                 if (tempAnswer.includes(letter)){
                     cell.style.backgroundColor = "rgba(235, 213, 92, 1)";
                     tempAnswer[tempAnswer.indexOf(letter)] = null;
