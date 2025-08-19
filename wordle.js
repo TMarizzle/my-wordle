@@ -33,14 +33,14 @@ function compare () {
             let letter = guess[i];
             let cell = currentLetter[i];
             if (letter == answer[i]){
-                cell.style.backgroundColor = "green";
+                cell.style.backgroundColor = "rgba(72, 197, 14, 1)";
                 console.log(`${letter} is in correct spot.`);
             } else if (answer.includes(letter)){
                 console.log(`${letter} is in the wrong spot.`);
-                cell.style.backgroundColor = "yellow";
+                cell.style.backgroundColor = "rgba(235, 213, 92, 1)";
             } else {
                 console.log(`${letter} is not in the word.`);
-                cell.style.backgroundColor = "gray";
+                cell.style.backgroundColor = "rgba(122, 122, 126, 0.93)";
             }
         }
         if (userGuess == wordToGuess && guessRemain > 0){
