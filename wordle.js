@@ -63,9 +63,9 @@ function compare () {
         } else if (userGuess !== wordToGuess){
             guessRemain--;
             currentRow++;
-        }else {
-        alert("Not a valid word, try again.");
         }
+    } else {
+        alert("Not a valid word, try again.");
     }
 }
 
