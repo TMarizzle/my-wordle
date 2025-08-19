@@ -16,7 +16,8 @@ function getText() {
     cells.forEach(cell => {
         inputValues.push(cell.value);
     });
-    let userWord = inputValues.join('');
+    let inputWord = inputValues.join('');
+    let userWord = inputWord.toLowerCase();
     return userWord;
 }
 
