@@ -21,14 +21,29 @@ function getText() {
 }
 
 function compare () {
-    //compare the user's guess to the wordToGuess
     let userGuess = getText();
-    //Make sure word exists, if it does then continue
     let isWord = WORDS.includes(userGuess);
     if (isWord){
-        console.log(`User input: ${userGuess}`);
+        let guess = userGuess.split('');
+        let answer = wordToGuess.split('');
+        let currentLine = document.getElementById(`guess${currentRow}`);
+        let currentLetter = currentLine.querySelectorAll('input');
+        for (let i=0; i < guess.length; i++){
+            let letter = guess[i];
+            let cell = currentLetter[i];
+            if (letter == answer[i]){
+                cell.style.backgroundColor = "green";
+                console.log(`${letter} is in correct spot.`);
+            } else if (answer.includes(letter)){
+                console.log(`${letter} is in the wrong spot.`);
+                cell.style.backgroundColor = "yellow";
+            } else {
+                console.log(`${letter} is not in the word.`);
+                cell.style.backgroundColor = "gray";
+            }
+        }
         if (userGuess == wordToGuess && guessRemain > 0){
-            console.log("You win!");
+            alert("You win!");
         } else if (userGuess !== wordToGuess){
             guessRemain--;
             currentRow++;
