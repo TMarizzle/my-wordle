@@ -58,6 +58,8 @@ let submit = document.getElementById("submit");
 submit.addEventListener('click', () => {
     if (guessRemain > 0){
         compare();
+    } else if (guessRemain <= 0){
+        alert(`You're out of guesses! The word was ${wordToGuess}.`);
     }
 });
 let newGame = document.getElementById("new");
@@ -92,6 +94,8 @@ allInputs.forEach(input => {
         }
         if (e.key === 'Enter' && guessRemain > 0){
             compare();
+        } else if (e.key === 'Enter' && guessRemain <= 0){
+            alert(`You're out of guesses! The word was ${wordToGuess}.`);
         }
     });
 });
