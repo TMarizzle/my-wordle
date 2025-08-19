@@ -62,7 +62,7 @@ submit.addEventListener('click', () => {
 });
 let newGame = document.getElementById("new");
 newGame.addEventListener('click', () => {
-    alert("This button doesn't do anything yet!");
+    location.reload();
 });
 
 //Add listener to each blank for keyup and move to next blank
