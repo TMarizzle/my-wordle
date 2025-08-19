@@ -59,6 +59,10 @@ submit.addEventListener('click', () => {
         compare();
     }
 });
+let newGame = document.getElementById("new");
+newGame.addEventListener('click', () => {
+    alert("This button doesn't do anything yet!");
+});
 
 //Add listener to each blank for keyup and move to next blank
 //once user has entered a letter
