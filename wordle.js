@@ -29,28 +29,41 @@ function compare () {
         let answer = wordToGuess.split('');
         let currentLine = document.getElementById(`guess${currentRow}`);
         let currentLetter = currentLine.querySelectorAll('input');
+        let tempAnswer = [...answer];
+
         for (let i=0; i < guess.length; i++){
             let letter = guess[i];
             let cell = currentLetter[i];
-            if (letter == answer[i]){
+            console.log("Inside first for loop");
+            if (letter == tempAnswer[i]){
+                console.log("Change letter to green!");
                 cell.style.backgroundColor = "rgba(72, 197, 14, 1)";
-                console.log(`${letter} is in correct spot.`);
-            } else if (answer.includes(letter)){
-                console.log(`${letter} is in the wrong spot.`);
-                cell.style.backgroundColor = "rgba(235, 213, 92, 1)";
-            } else {
-                console.log(`${letter} is not in the word.`);
-                cell.style.backgroundColor = "rgba(122, 122, 126, 0.93)";
+                tempAnswer[i] = null;
             }
         }
+            
+        for (let i = 0; i< guess.length; i++) {
+            let letter = guess[i];
+            let cell = currentLetter[i];
+            //If letter already exists, check if it's been marked correct
+            if (cell.style.backgroundColor !== "rgba(72, 197, 14, 1)"){
+                if (tempAnswer.includes(letter)){
+                    cell.style.backgroundColor = "rgba(235, 213, 92, 1)";
+                    tempAnswer[tempAnswer.indexOf(letter)] = null;
+                } else {
+                    cell.style.backgroundColor = "rgba(122, 122, 126, 0.93)";
+                }
+            }
+        }
+
         if (userGuess == wordToGuess && guessRemain > 0){
             alert("You win!");
         } else if (userGuess !== wordToGuess){
             guessRemain--;
             currentRow++;
-        }
-    } else {
+        }else {
         alert("Not a valid word, try again.");
+        }
     }
 }
 
