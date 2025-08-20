@@ -6,7 +6,7 @@ let guessRemain = numGuesses;
 let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(wordToGuess);
 let userGuess = "";
-let guessLetters = ['','','','',''];
+let guessLetters = [];
 
 //claire is really cool and this is a great comment!
 function getText() {
@@ -15,6 +15,7 @@ function getText() {
 
 function compare () {
     userGuess = getText();
+    console.log(`User input is: ${userGuess}`);
     let isWord = WORDS.includes(userGuess);
     if (isWord){
         let guess = userGuess.split('');
@@ -102,7 +103,7 @@ allInputs.forEach(input => {
         let inputsInRow = Array.from(row.querySelectorAll('input'));
         let index = inputsInRow.indexOf(target);
 
-        guessLetters[index] = target.value;
+        guessLetters.push(target.value);
 
         console.log(`Input: ${target.value}`);
         if (e.key === 'Backspace' && myLength === 0){
