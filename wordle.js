@@ -60,8 +60,10 @@ function compare () {
 
         if (userGuess == wordToGuess){
             alert("You win! Refresh or click New Game to play again.");
+            return true;
         } else if (guessRemain <= 1){
             alert(`You ran out of guesses. The word was ${wordToGuess}`);
+            return true;
         }
         
         if (userGuess !== wordToGuess){
@@ -69,17 +71,19 @@ function compare () {
             currentRow++;
         }
 
+        return true;
     } else {
         alert("Not a valid word, try again.");
+        return false;
     }
 }
 
 let submit = document.getElementById("submit");
 submit.addEventListener('click', () => {
     if (guessRemain > 0){
-        compare();
+        let validGuess = compare();
         //Auto focus to next row after user enters guess
-        if (guessRemain > 0 && userGuess !== wordToGuess){
+        if (validGuess && userGuess !== wordToGuess){
             let nextRow = document.getElementById(`guess${currentRow}`);
             let nextRowInput = nextRow.querySelector('input');
             nextRowInput.focus();
@@ -120,9 +124,9 @@ allInputs.forEach(input => {
                 }
         }
         if (e.key === 'Enter' && guessRemain > 0){
-            compare();
+            let validGuess = compare();
             //Auto focus to next row after user enters guess
-            if (guessRemain > 0 && userGuess !== wordToGuess){
+            if (validGuess && userGuess !== wordToGuess){
                 let nextRow = document.getElementById(`guess${currentRow}`);
                 let nextRowInput = nextRow.querySelector('input');
                 nextRowInput.focus();
