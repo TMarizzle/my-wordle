@@ -6,22 +6,11 @@ let guessRemain = numGuesses;
 let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(wordToGuess);
 let userGuess = "";
+let guessLetters = ['','','','',''];
 
 //claire is really cool and this is a great comment!
 function getText() {
-    let row = document.getElementById(`guess${currentRow}`);
-    const cells = row.querySelectorAll('input');
-    console.log(cells);
-    let inputValues = [];
-
-    cells.forEach(cell => {
-        inputValues.push(cell.value);
-        console.log(inputValues);
-    });
-    let inputWord = inputValues.join('');
-    let userWord = inputWord.toLowerCase();
-    console.log(userWord);
-    return userWord;
+    return guessLetters.join('').toLowerCase();
 }
 
 function compare () {
@@ -109,36 +98,43 @@ allInputs.forEach(input => {
         let target = e.target;
         let maxLength = parseInt(target.attributes["maxlength"].value, 10);
         let myLength = target.value.length;
+        let row = target.parentElement;
+        let inputsInRow = Array.from(row.querySelectorAll('input'));
+        let index = inputsInRow.indexOf(target);
+
+        guessLetters[index] = target.value;
+
+        console.log(`Input: ${target.value}`);
         if (e.key === 'Backspace' && myLength === 0){
+            guessLetters[index] = '';
             let previous = target.parentElement.previousElementSibling;
-            if (previous){
+            if (myLength == 0 && previous){
                 let previousInput = previous.querySelector("input");
                 if (previousInput){
                     previousInput.focus();
                 }
             }
         } else if (myLength >= maxLength){
-                let next = target.parentElement.nextElementSibling;
-                if (next){
-                    let nextInput = next.querySelector("input");
-                    if (nextInput){
-                        nextInput.focus();
-                    }
+            guessLetters[index] = target.value;
+            let next = target.parentElement.nextElementSibling;
+            if (next){
+                let nextInput = next.querySelector("input");
+                if (nextInput){
+                    nextInput.focus();
                 }
+            }
         }
         if (e.key === 'Enter' && guessRemain > 0){
-            let currentRowInputs = document.getElementById(`guess${currentRow}`).querySelectorAll('input');
-            let isRowFull = true;
-            currentRowInputs.forEach(input => {
-                if (input.value.length === 0){
-                    isRowFull = false;
-                }
-            });
+            //check if every input has something in it
+            let isRowFull = guessLetters.every(letter => letter !== '');
+            console.log(guessLetters);
             console.log(`IsRowFull is set to: ${isRowFull}`);
+
             if (isRowFull){
                 let validGuess = compare();
                 //Auto focus to next row after user enters guess
                 if (validGuess && userGuess !== wordToGuess){
+                    guessLetters = ['','','','',''];
                     let nextRow = document.getElementById(`guess${currentRow}`);
                     if (nextRow){
                         let nextRowInput = nextRow.querySelector('input');
