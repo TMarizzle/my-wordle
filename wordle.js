@@ -18,6 +18,7 @@ function getText() {
     });
     let inputWord = inputValues.join('');
     let userWord = inputWord.toLowerCase();
+    console.log(userWord);
     return userWord;
 }
 
