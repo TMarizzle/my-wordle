@@ -127,12 +127,26 @@ allInputs.forEach(input => {
                 }
         }
         if (e.key === 'Enter' && guessRemain > 0){
-            let validGuess = compare();
-            //Auto focus to next row after user enters guess
-            if (validGuess && userGuess !== wordToGuess){
-                let nextRow = document.getElementById(`guess${currentRow}`);
-                let nextRowInput = nextRow.querySelector('input');
-                nextRowInput.focus();
+            let currentRowInputs = document.getElementById(`guess${currentRow}`).querySelectorAll('input');
+            let isRowFull = true;
+            currentRowInputs.forEach(input => {
+                if (input.value.length === 0){
+                    isRowFull = false;
+                }
+            });
+            console.log(`IsRowFull is set to: ${isRowFull}`);
+            if (isRowFull){
+                let validGuess = compare();
+                //Auto focus to next row after user enters guess
+                if (validGuess && userGuess !== wordToGuess){
+                    let nextRow = document.getElementById(`guess${currentRow}`);
+                    if (nextRow){
+                        let nextRowInput = nextRow.querySelector('input');
+                        if (nextRowInput){
+                            nextRowInput.focus();
+                        }
+                    }
+                }
             }
         } else if (e.key === 'Enter' && guessRemain <= 0){
             alert(`You're out of guesses! The word was ${wordToGuess}.`);
