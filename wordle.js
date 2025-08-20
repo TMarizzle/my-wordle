@@ -6,11 +6,20 @@ let guessRemain = numGuesses;
 let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(wordToGuess);
 let userGuess = "";
-let guessLetters = [];
 
 //claire is really cool and this is a great comment!
 function getText() {
-    return guessLetters.join('').toLowerCase();
+    let row = document.getElementById(`guess${currentRow}`);
+    let cells = row.querySelectorAll('input');
+    let inputValues = [];
+
+    cells.forEach(cell => {
+        inputValues.push(cell.value);
+        console.log(`Inside getText, inputValues contains: ${inputValues}`);
+    });
+    let inputWord = inputValues.join('');
+    let userWord = inputWord.toLowerCase();
+    return userWord;
 }
 
 function compare () {
@@ -95,14 +104,10 @@ newGame.addEventListener('click', () => {
 //once user has entered a letter
 const allInputs = document.querySelectorAll("input");
 allInputs.forEach(input => {
-    input.addEventListener('keydown', (e) => {
+    input.addEventListener('keyup', (e) => {
         let target = e.target;
         let maxLength = parseInt(target.attributes["maxlength"].value, 10);
         let myLength = target.value.length;
-
-        if (guessLetters.length < 5){
-            guessLetters.push(target.value);
-        }
 
         if (e.key === 'Backspace' && myLength === 0){
             let previous = target.parentElement.previousElementSibling;
@@ -124,10 +129,11 @@ allInputs.forEach(input => {
         if (e.key === 'Enter' && guessRemain > 0){
             //check if every input has something in it
             let isRowFull = true;
-            if (guessLetters.length < 5){
+            let checkWord = getText();
+            console.log(`User guess: ${checkWord}`);
+            if (checkWord.length < 5){
                 isRowFull = false;
             }
-            console.log(guessLetters);
             console.log(`IsRowFull is set to: ${isRowFull}`);
 
             if (isRowFull){
