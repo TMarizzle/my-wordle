@@ -10,11 +10,13 @@ let userGuess = "";
 //claire is really cool and this is a great comment!
 function getText() {
     let row = document.getElementById(`guess${currentRow}`);
-    const cells = row.querySelectorAll('input[type="text"');
-    const inputValues = [];
+    const cells = row.querySelectorAll('input');
+    console.log(cells);
+    let inputValues = [];
 
     cells.forEach(cell => {
         inputValues.push(cell.value);
+        console.log(inputValues);
     });
     let inputWord = inputValues.join('');
     let userWord = inputWord.toLowerCase();
