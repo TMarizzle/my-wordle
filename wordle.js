@@ -19,6 +19,7 @@ function getText() {
     });
     let inputWord = inputValues.join('');
     let userWord = inputWord.toLowerCase();
+    console.log(`User word: ${userWord}`);
     return userWord;
 }
 
@@ -102,51 +103,49 @@ newGame.addEventListener('click', () => {
 
 //Add listener to each blank for keyup and move to next blank
 //once user has entered a letter
-const allInputs = document.querySelectorAll("input");
-allInputs.forEach(input => {
-    input.addEventListener('keyup', (e) => {
-        let target = e.target;
+document.addEventListener('keyup', (e) => {
+    const activeElement = document.activeElement;
+    if (activeElement.tagName === 'INPUT'){
+        let target = activeElement;
         let maxLength = parseInt(target.attributes["maxlength"].value, 10);
         let myLength = target.value.length;
+    
+        if (e.key !== 'Enter' && e.key !== 'Backspace' && myLength >= maxLength){
+            let next = target.nextElementSibling;
+            if (next && next.tagName === 'INPUT'){
+                next.focus();
+            }
+        }
 
         if (e.key === 'Backspace' && myLength === 0){
-            let previous = target.parentElement.previousElementSibling;
-            if (myLength == 0 && previous){
-                let previousInput = previous.querySelector("input");
-                if (previousInput){
-                    previousInput.focus();
-                }
-            }
-        } else if (myLength >= maxLength){
-            let next = target.parentElement.nextElementSibling;
-            if (next){
-                let nextInput = next.querySelector("input");
-                if (nextInput){
-                    nextInput.focus();
-                }
+            let previous = target.previousElementSibling;
+            if (previous && previous.tagName === 'INPUT'){
+                previous.focus();
             }
         }
-        if (e.key === 'Enter' && guessRemain > 0){
-            //check if every input has something in it
-            let isRowFull = true;
-            let checkWord = getText();
-            console.log(`User guess: ${checkWord}`);
-            if (checkWord.length < 5){
-                isRowFull = false;
-            }
-            console.log(`IsRowFull is set to: ${isRowFull}`);
+    }
+    if (e.key === 'Enter' && guessRemain > 0){
+        //check if every input has something in it
+        let isRowFull = true;
+        let checkWord = getText();
+        console.log(`User guess: ${checkWord}`);
+        if (checkWord.length < 5){
+            isRowFull = false;
+            alert("Please enter a 5 letter word.");
+        }
 
-            if (isRowFull){
-                let validGuess = compare();
-                //Auto focus to next row after user enters guess
-                if (validGuess && userGuess !== wordToGuess){
-                    let nextRow = document.getElementById(`guess${currentRow}`);
-                    let nextRowInput = nextRow.querySelector('input');
-                    nextRowInput.focus();
-                }
+        console.log(`IsRowFull is set to: ${isRowFull}`);
+
+        if (isRowFull){
+            let validGuess = compare();
+            //Auto focus to next row after user enters guess
+            if (validGuess && userGuess !== wordToGuess){
+                let nextRow = document.getElementById(`guess${currentRow}`);
+                let nextRowInput = nextRow.querySelector('input');
+                nextRowInput.focus();
             }
-        } else if (e.key === 'Enter' && guessRemain <= 0){
-            alert(`You're out of guesses! The word was ${wordToGuess}.`);
         }
-    });
+    } else if (e.key === 'Enter' && guessRemain <= 0){
+            alert(`You're out of guesses! The word was ${wordToGuess}.`);
+    }
 });
