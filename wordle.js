@@ -95,19 +95,16 @@ newGame.addEventListener('click', () => {
 //once user has entered a letter
 const allInputs = document.querySelectorAll("input");
 allInputs.forEach(input => {
-    input.addEventListener('keyup', (e) => {
+    input.addEventListener('keydown', (e) => {
         let target = e.target;
         let maxLength = parseInt(target.attributes["maxlength"].value, 10);
         let myLength = target.value.length;
-        let row = target.parentElement;
-        let inputsInRow = Array.from(row.querySelectorAll('input'));
-        let index = inputsInRow.indexOf(target);
 
-        guessLetters.push(target.value);
+        if (guessLetters.length < 5){
+            guessLetters.push(target.value);
+        }
 
-        console.log(`Input: ${target.value}`);
         if (e.key === 'Backspace' && myLength === 0){
-            guessLetters[index] = '';
             let previous = target.parentElement.previousElementSibling;
             if (myLength == 0 && previous){
                 let previousInput = previous.querySelector("input");
@@ -116,7 +113,6 @@ allInputs.forEach(input => {
                 }
             }
         } else if (myLength >= maxLength){
-            guessLetters[index] = target.value;
             let next = target.parentElement.nextElementSibling;
             if (next){
                 let nextInput = next.querySelector("input");
@@ -127,7 +123,10 @@ allInputs.forEach(input => {
         }
         if (e.key === 'Enter' && guessRemain > 0){
             //check if every input has something in it
-            let isRowFull = guessLetters.every(letter => letter !== '');
+            let isRowFull = true;
+            if (guessLetters.length < 5){
+                isRowFull = false;
+            }
             console.log(guessLetters);
             console.log(`IsRowFull is set to: ${isRowFull}`);
 
@@ -135,14 +134,9 @@ allInputs.forEach(input => {
                 let validGuess = compare();
                 //Auto focus to next row after user enters guess
                 if (validGuess && userGuess !== wordToGuess){
-                    guessLetters = ['','','','',''];
                     let nextRow = document.getElementById(`guess${currentRow}`);
-                    if (nextRow){
-                        let nextRowInput = nextRow.querySelector('input');
-                        if (nextRowInput){
-                            nextRowInput.focus();
-                        }
-                    }
+                    let nextRowInput = nextRow.querySelector('input');
+                    nextRowInput.focus();
                 }
             }
         } else if (e.key === 'Enter' && guessRemain <= 0){
