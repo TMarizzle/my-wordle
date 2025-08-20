@@ -5,10 +5,10 @@ let currentRow = 1;
 let guessRemain = numGuesses;
 let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(wordToGuess);
+let userGuess = "";
 
 //claire is really cool and this is a great comment!
 function getText() {
-    //Currently, only checks the first row. Need to update this to check the "current" row.
     let row = document.getElementById(`guess${currentRow}`);
     const cells = row.querySelectorAll('input[type="text"');
     const inputValues = [];
@@ -22,7 +22,7 @@ function getText() {
 }
 
 function compare () {
-    let userGuess = getText();
+    userGuess = getText();
     let isWord = WORDS.includes(userGuess);
     if (isWord){
         let guess = userGuess.split('');
@@ -78,6 +78,13 @@ let submit = document.getElementById("submit");
 submit.addEventListener('click', () => {
     if (guessRemain > 0){
         compare();
+        //Auto focus to next row after user enters guess
+        if (guessRemain > 0 && userGuess !== wordToGuess){
+            let nextRow = document.getElementById(`guess${currentRow}`);
+            let nextRowInput = nextRow.querySelector('input');
+            nextRowInput.focus();
+        }
+
     } else if (guessRemain <= 0){
         alert(`You're out of guesses! The word was ${wordToGuess}.`);
     }
@@ -114,6 +121,12 @@ allInputs.forEach(input => {
         }
         if (e.key === 'Enter' && guessRemain > 0){
             compare();
+            //Auto focus to next row after user enters guess
+            if (guessRemain > 0 && userGuess !== wordToGuess){
+                let nextRow = document.getElementById(`guess${currentRow}`);
+                let nextRowInput = nextRow.querySelector('input');
+                nextRowInput.focus();
+            }
         } else if (e.key === 'Enter' && guessRemain <= 0){
             alert(`You're out of guesses! The word was ${wordToGuess}.`);
         }
