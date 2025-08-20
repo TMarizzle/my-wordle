@@ -7,6 +7,16 @@ let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(wordToGuess);
 let userGuess = "";
 
+function toggleInputs(rowNumber, enabled){
+    let row = document.getElementById(`guess${rowNumber}`);
+    if (row){
+        let inputs = row.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+        });
+    }
+}
+
 //claire is really cool and this is a great comment!
 function getText() {
     let row = document.getElementById(`guess${currentRow}`);
@@ -68,9 +78,10 @@ function compare () {
         
         if (userGuess !== wordToGuess){
             guessRemain--;
+            toggleInputs(currentRow, false);
             currentRow++;
+            toggleInputs(currentRow, true);
         }
-
         return true;
     } else {
         alert("Not a valid word, try again.");
@@ -143,3 +154,9 @@ document.addEventListener('keyup', (e) => {
             alert(`You're out of guesses! The word was ${wordToGuess}.`);
     }
 });
+
+for (let i=1; i <= 6; i++){
+    toggleInputs(i, false);
+}
+
+toggleInputs(currentRow, true);
