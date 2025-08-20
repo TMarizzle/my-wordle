@@ -14,13 +14,21 @@ h1 {
     width: 70%;
 }
 .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: fit-content;
+}
+
+.row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
 }
 
 input {
     border-radius: 10px;
-    display: block;
+    display: flex;
     height: 3em;
     width: 100%;
     max-width: 4em;

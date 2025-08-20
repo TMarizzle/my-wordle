@@ -15,17 +15,14 @@ function getText() {
 
     cells.forEach(cell => {
         inputValues.push(cell.value);
-        console.log(`Inside getText, inputValues contains: ${inputValues}`);
     });
     let inputWord = inputValues.join('');
     let userWord = inputWord.toLowerCase();
-    console.log(`User word: ${userWord}`);
     return userWord;
 }
 
 function compare () {
     userGuess = getText();
-    console.log(`User input is: ${userGuess}`);
     let isWord = WORDS.includes(userGuess);
     if (isWord){
         let guess = userGuess.split('');
@@ -128,13 +125,10 @@ document.addEventListener('keyup', (e) => {
         //check if every input has something in it
         let isRowFull = true;
         let checkWord = getText();
-        console.log(`User guess: ${checkWord}`);
         if (checkWord.length < 5){
             isRowFull = false;
             alert("Please enter a 5 letter word.");
         }
-
-        console.log(`IsRowFull is set to: ${isRowFull}`);
 
         if (isRowFull){
             let validGuess = compare();
