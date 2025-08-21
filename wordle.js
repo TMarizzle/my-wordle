@@ -171,7 +171,10 @@ function compare () {
                         break;
                     }
                 }
-                if (keyboardButton){
+                if (keyboardButton && !keyboardButton.classList.contains('yellow')){
+                    keyboardButton.classList.add('green');
+                } else if (keyboardButton && keyboardButton.classList.contains('yellow')){
+                    keyboardButton.classList.remove('yellow');
                     keyboardButton.classList.add('green');
                 }
             }
