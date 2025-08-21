@@ -7,6 +7,7 @@ const loseModalBtn = document.getElementById('lose-new');
 const modalCloseBtn = document.getElementById('modal-close');
 const loseModalClose = document.getElementById('lose-close');
 const numGuesses = 5;
+const animateTime = 100;
 let currentRow = 1;
 let guessRemain = numGuesses;
 let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
@@ -93,15 +94,14 @@ function compare () {
             return true;
         }
         
-        if (userGuess !== wordToGuess){
-            guessRemain--;
-            toggleInputs(currentRow, false);
-            currentRow++;
-            toggleInputs(currentRow, true);
-        }
+        // if (userGuess !== wordToGuess){
+        //     guessRemain--;
+        //     toggleInputs(currentRow, false);
+        //     currentRow++;
+        //     toggleInputs(currentRow, true);
+        // }
         return true;
     } else {
-        alert("Not a valid word, try again.");
         return false;
     }
 }
@@ -109,14 +109,34 @@ function compare () {
 let submit = document.getElementById("submit");
 submit.addEventListener('click', () => {
     if (guessRemain > 0){
-        let validGuess = compare();
-        //Auto focus to next row after user enters guess
-        if (validGuess && userGuess !== wordToGuess){
-            let nextRow = document.getElementById(`guess${currentRow}`);
-            let nextRowInput = nextRow.querySelector('input');
-            nextRowInput.focus();
+        let isRowFull = true;
+        let checkWord = getText();
+
+        if (checkWord.length < 5){
+            isRowFull = false;
         }
 
+        if (isRowFull){
+            if (compare()){
+                //Auto focus to next row after user enters guess
+                if (userGuess !== wordToGuess){
+                    guessRemain--;
+                    toggleInputs(currentRow, false);
+                    currentRow++;
+                    toggleInputs(currentRow, true);
+
+                    let nextRow = document.getElementById(`guess${currentRow}`);
+                    let nextRowInput = nextRow.querySelector('input');
+                    nextRowInput.focus();
+                }
+            } else {
+                let currentDiv = document.getElementById(`guess${currentRow}`);
+                currentDiv.classList.add('shake');
+                currentDiv.addEventListener('animationend',() => {
+                currentDiv.classList.remove('shake');
+                }, {once:true});
+            }
+        }
     } else if (guessRemain <= 0){
         showLoseModal();
     }
@@ -159,12 +179,24 @@ document.addEventListener('keyup', (e) => {
         }
 
         if (isRowFull){
-            let validGuess = compare();
-            //Auto focus to next row after user enters guess
-            if (validGuess && userGuess !== wordToGuess){
-                let nextRow = document.getElementById(`guess${currentRow}`);
-                let nextRowInput = nextRow.querySelector('input');
-                nextRowInput.focus();
+            if (compare()){
+                //Auto focus to next row after user enters guess
+                if (userGuess !== wordToGuess){
+                    guessRemain--;
+                    toggleInputs(currentRow, false);
+                    currentRow++;
+                    toggleInputs(currentRow, true);
+
+                    let nextRow = document.getElementById(`guess${currentRow}`);
+                    let nextRowInput = nextRow.querySelector('input');
+                    nextRowInput.focus();
+                }
+            } else {
+                let currentDiv = document.getElementById(`guess${currentRow}`);
+                currentDiv.classList.add('shake');
+                currentDiv.addEventListener('animationend',() => {
+                currentDiv.classList.remove('shake');
+                }, {once:true});
             }
         }
     } else if (e.key === 'Enter' && guessRemain <= 0){

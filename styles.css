@@ -65,3 +65,18 @@ button {
     width: 80%;
     text-align: center;
 }
+.shake {
+    transition: all 250ms;
+}
+
+@keyframes shake {
+    0%, 100%{
+        transform: translateX(0);
+    }
+    20%, 60% {
+        transform: translateX(-10px);
+    }
+    40%, 80% {
+        transform: translateX(10px);
+    }
+}
