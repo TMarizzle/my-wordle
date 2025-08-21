@@ -10,9 +10,9 @@
 <body>
     <div class="heading">
     <h1>Wordle</h1>
-    <h3>Try to guess the word!</h3>
-    <button id="submit">Submit Guess</button>
-    <button id="new">New Game</button>
+    Guess the word in 5 or fewer tries!<br>
+    (Yellow: Letter is in word but in the wrong spot)<br>
+    (Green: Letter is in the correct spot)<br>
     </div>
     <div class="wrapper">
         <div class="row" id = "guess1">
@@ -57,6 +57,7 @@
             <h2>You win!</h2>
             <p>The word was: </p>
             <p class="answer-word"></p>
+            <p>Refresh page or click New Game to play again.</p>
             <button id="modal-new-game">New Game</button>
             <button id="modal-close">Close</button>
         </div>
@@ -66,6 +67,7 @@
             <h2>You lose!</h2>
             <p>The word was: </p>
             <p class="answer-word"></p>
+            <p>Refresh page or click New Game to play again.</p>
             <button id="lose-new">New Game</button>
             <button id="lose-close">Close</button>
         </div>

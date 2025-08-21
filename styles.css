@@ -1,6 +1,7 @@
 * {
-    background-color:antiquewhite;
+    background-color:rgb(41, 43, 41);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(216, 218, 215);
 }
 .heading {
     padding-bottom: 10px;
@@ -33,6 +34,7 @@ input {
     width: 100%;
     max-width: 4em;
     font-size: 2em;
+    font-weight: 700;
     text-align: center;
     box-sizing: border-box;
     border: 3px solid #8d8d8d;
@@ -40,9 +42,12 @@ input {
     text-transform: capitalize;
 }
 button {
-    background-color: rgb(113, 213, 243);
+    background-color: rgb(3, 16, 20);
     padding: 10px;
     height: 50px;
+    font-size: medium;
+    border: 2px solid rgb(216, 218, 215);
+    border-radius: 10px;
 }
 
 .modal {
@@ -58,12 +63,20 @@ button {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: black;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    border: 2px solid gray;
+    width: 60%;
     text-align: center;
+}
+
+.modal p {
+    font-size: 20px;
+}
+
+.answer-word {
+    font-style: italic;
 }
 .shake {
     animation: shake 0.5s;

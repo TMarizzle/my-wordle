@@ -65,7 +65,7 @@ function compare () {
             let letter = guess[i];
             let cell = currentLetter[i];
             if (letter === tempAnswer[i]){
-                cell.style.backgroundColor = "rgba(72, 197, 14, 1)";
+                cell.style.backgroundColor = "rgba(55, 146, 12, 1)";
                 tempAnswer[i] = null;
                 isCorrect[i] = true;
             }
@@ -78,7 +78,7 @@ function compare () {
             if (!isCorrect[i]){
                 //if it's not correct then check if letter exists and mark it yellow or gray
                 if (tempAnswer.includes(letter)){
-                    cell.style.backgroundColor = "rgba(235, 213, 92, 1)";
+                    cell.style.backgroundColor = "rgba(197, 174, 44, 1)";
                     tempAnswer[tempAnswer.indexOf(letter)] = null;
                 } else {
                     cell.style.backgroundColor = "rgba(122, 122, 126, 0.93)";
@@ -106,52 +106,52 @@ function compare () {
     }
 }
 
-let submit = document.getElementById("submit");
-submit.addEventListener('click', () => {
-    if (guessRemain > 0){
-        let isRowFull = true;
-        let checkWord = getText();
+// let submit = document.getElementById("submit");
+// submit.addEventListener('click', () => {
+//     if (guessRemain > 0){
+//         let isRowFull = true;
+//         let checkWord = getText();
 
-        if (checkWord.length < 5){
-            isRowFull = false;
-            let currentDiv = document.getElementById(`guess${currentRow}`);
-            currentDiv.classList.add('shake');
-            void currentDiv.offsetWidth;
-            setTimeout(() => {
-                currentDiv.classList.remove('shake');
-            }, 500);
-        }
+//         if (checkWord.length < 5){
+//             isRowFull = false;
+//             let currentDiv = document.getElementById(`guess${currentRow}`);
+//             currentDiv.classList.add('shake');
+//             void currentDiv.offsetWidth;
+//             setTimeout(() => {
+//                 currentDiv.classList.remove('shake');
+//             }, 500);
+//         }
 
-        if (isRowFull){
-            if (compare()){
-                //Auto focus to next row after user enters guess
-                if (userGuess !== wordToGuess){
-                    guessRemain--;
-                    toggleInputs(currentRow, false);
-                    currentRow++;
-                    toggleInputs(currentRow, true);
+//         if (isRowFull){
+//             if (compare()){
+//                 //Auto focus to next row after user enters guess
+//                 if (userGuess !== wordToGuess){
+//                     guessRemain--;
+//                     toggleInputs(currentRow, false);
+//                     currentRow++;
+//                     toggleInputs(currentRow, true);
 
-                    let nextRow = document.getElementById(`guess${currentRow}`);
-                    let nextRowInput = nextRow.querySelector('input');
-                    nextRowInput.focus();
-                }
-            } else {
-                let currentDiv = document.getElementById(`guess${currentRow}`);
-                currentDiv.classList.add('shake');
-                void currentDiv.offsetWidth;
-                setTimeout(() => {
-                    currentDiv.classList.remove('shake');
-                }, 500);
-            }
-        }
-    } else if (guessRemain <= 0){
-        showLoseModal();
-    }
-});
-let newGame = document.getElementById("new");
-newGame.addEventListener('click', () => {
-    window.location.reload();
-});
+//                     let nextRow = document.getElementById(`guess${currentRow}`);
+//                     let nextRowInput = nextRow.querySelector('input');
+//                     nextRowInput.focus();
+//                 }
+//             } else {
+//                 let currentDiv = document.getElementById(`guess${currentRow}`);
+//                 currentDiv.classList.add('shake');
+//                 void currentDiv.offsetWidth;
+//                 setTimeout(() => {
+//                     currentDiv.classList.remove('shake');
+//                 }, 500);
+//             }
+//         }
+//     } else if (guessRemain <= 0){
+//         showLoseModal();
+//     }
+// });
+// let newGame = document.getElementById("new");
+// newGame.addEventListener('click', () => {
+//     window.location.reload();
+// });
 
 //Add listener to each blank for keyup and move to next blank
 //once user has entered a letter
