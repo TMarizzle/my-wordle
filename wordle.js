@@ -153,6 +153,8 @@ function compare () {
         let tempAnswer = [...answer];
         let isCorrect = [];
 
+        const allKeyboardBtns = document.querySelectorAll('.keyboard button');
+
         //check if letter is in correct place then change background to green if it is
         for (let i=0; i < guess.length; i++){
             let letter = guess[i];
@@ -161,6 +163,17 @@ function compare () {
                 cell.style.backgroundColor = "rgba(55, 146, 12, 1)";
                 tempAnswer[i] = null;
                 isCorrect[i] = true;
+
+                let keyboardButton = null;
+                for (let btn of allKeyboardBtns){
+                    if (btn.textContent.toLowerCase() === letter.toLowerCase()){
+                        keyboardButton = btn;
+                        break;
+                    }
+                }
+                if (keyboardButton){
+                    keyboardButton.classList.add('green');
+                }
             }
         }
             
@@ -173,8 +186,30 @@ function compare () {
                 if (tempAnswer.includes(letter)){
                     cell.style.backgroundColor = "rgba(197, 174, 44, 1)";
                     tempAnswer[tempAnswer.indexOf(letter)] = null;
+
+                    let keyboardBtn = null;
+                    for (let btn of allKeyboardBtns){
+                        if (btn.textContent.toLocaleLowerCase() === letter.toLowerCase()){
+                            keyboardBtn = btn;
+                            break;
+                        }
+                    }
+                    if (keyboardBtn && !keyboardBtn.classList.contains('green')){
+                        keyboardBtn.classList.add('yellow');
+                    }
                 } else {
                     cell.style.backgroundColor = "rgba(122, 122, 126, 0.93)";
+
+                    let keyboardBtn = null;
+                    for (let btn of allKeyboardBtns){
+                        if (btn.textContent.toLowerCase() === letter.toLowerCase()){
+                            keyboardBtn = btn;
+                            break;
+                        }
+                    }
+                    if (keyboardBtn && !keyboardBtn.classList.contains('green') && !keyboardBtn.classList.contains('yellow')){
+                        keyboardBtn.classList.add('gray');
+                    }
                 }
             }
         }

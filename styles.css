@@ -55,6 +55,20 @@ h1 {
     text-transform: uppercase;
 }
 
+.keyboard button.green {
+    background-color: rgba(55, 146, 12, 1);
+    color: white;
+}
+
+.keyboard button.yellow {
+    background-color: rgba(197, 174, 44, 1);
+    color: white;
+}
+
+.keybaord button.gray {
+    background-color: rgba(122, 122, 126, 0.93);
+    color: white;
+}
 .row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
