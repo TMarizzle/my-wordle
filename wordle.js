@@ -51,26 +51,49 @@ function getText() {
 }
 
 function keyHandler(key) {
-    const activeElement = document.activeElement;
-    if (activeElement.tagName === 'INPUT' && key.length === 1 && key.match(/[a-z]/i)){
-        let target = activeElement;
-        let next = target.nextElementSibling;
-        let maxLength = parseInt(target.attributes["maxlength"].value, 10);
-        let myLength = target.value.length;
-    
-        if (next && next.tagName === 'INPUT'){
-            next.focus();
-        } else if (activeElement.tagName === 'INPUT' && key === 'Backspace' && activeElement.value.length === 0){
-            let previous = target.previousElementSibling;
-            if (previous && previous.tagName === 'INPUT'){
-                previous.focus();
-                previous.value = '';
+    let activeElement = document.activeElement;
+
+    if (key.length === 1 && key.match(/[a-z]/i)){
+        let inputs = document.querySelectorAll(`#guess${currentRow} input`);
+        let firstEmptyInput = null;
+
+        for (let i = 0; i < inputs.length; i++){
+            if (inputs[i].value === ''){
+                firstEmptyInput = inputs[i];
+                break;
             }
-        } else if ((activeElement.tagName === 'INPUT' && key === 'Backspace' && activeElement.value.length > 0)) {
-            activeElement.value = '';
         }
-    }
-    if (key === 'Enter' && guessRemain > 0){
+        
+        if (firstEmptyInput){
+            firstEmptyInput.value = key;
+            let next = firstEmptyInput.nextElementSibling;
+            if (next && next.tagName === 'INPUT'){
+                next.focus();
+            }
+        }
+    } else if (key === 'Backspace' || key === 'Del'){
+        let target = null;
+        if (activeElement.tagName === 'INPUT'){
+            if (activeElement.value !== ''){
+                target = activeElement;
+            } else {
+                target = activeElement.previousElementSibling;
+            }
+        } else {
+            let inputs = document.querySelectorAll(`#guess${currentRow} input`);
+            for (let i = inputs.length - 1; i >= 0; i--){
+                if (inputs[i].value !== ''){
+                    target = inputs[i];
+                    break;
+                }
+            }
+        }
+
+        if (target && target.tagName === 'INPUT'){
+            target.value = '';
+            target.focus();
+        }
+    } else if (key === 'Enter' && guessRemain > 0){
         //check if every input has something in it
         let isRowFull = true;
         let checkWord = getText();
@@ -109,7 +132,6 @@ function keyHandler(key) {
     } else if (key === 'Enter' && guessRemain <= 0){
             showLoseModal();
     }
-
 }
 
 function compare () {
@@ -167,6 +189,10 @@ document.querySelector('.keyboard').addEventListener('click', (e) => {
         let key = e.target.textContent;
         if (key === 'Del'){
             key = 'Backspace';
+        } else if (key === 'Enter'){
+            key = 'Enter';
+        } else {
+            key = key.toLowerCase();
         }
         keyHandler(key);
     }
