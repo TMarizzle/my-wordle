@@ -167,8 +167,15 @@ document.querySelector('.keyboard').addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON'){
         let key = e.target.textContent;
         key = key.toLowerCase();
-        console.log(`Letter: ${key}`);
-        keyHandler(key);
+        const keyboardEvent = new KeyboardEvent('keyup', {
+            key: key,
+            bubbles: true
+        });
+        
+        const activeInput = document.activeElement;
+        if (activeInput.tagName === 'INPUT'){
+            activeInput.dispatchEvent(keyboardEvent);
+        }
     }
 });
 
