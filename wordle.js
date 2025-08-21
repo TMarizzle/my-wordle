@@ -192,7 +192,7 @@ function compare () {
 
                     let keyboardBtn = null;
                     for (let btn of allKeyboardBtns){
-                        if (btn.textContent.toLocaleLowerCase() === letter.toLowerCase()){
+                        if (btn.textContent.toLowerCase() === letter.toLowerCase()){
                             keyboardBtn = btn;
                             break;
                         }
@@ -203,17 +203,18 @@ function compare () {
                 } else {
                     cell.style.backgroundColor = "rgba(122, 122, 126, 0.93)";
 
-                    let keyboardBtn = null;
+                    let keyboardButton = null;
                     for (let btn of allKeyboardBtns){
                         if (btn.textContent.toLowerCase() === letter.toLowerCase()){
-                            keyboardBtn = btn;
+                            keyboardButton = btn;
                             break;
                         }
                     }
-                    if (keyboardBtn && !keyboardBtn.classList.contains('green') && !keyboardBtn.classList.contains('yellow')){
-                        keyboardBtn.classList.add('gray');
+                    if (keyboardButton && !keyboardButton.classList.contains('green') && !keyboardButton.classList.contains('yellow')){
+                        keyboardButton.classList.add('gray');
                     }
                 }
+                
             }
         }
 
