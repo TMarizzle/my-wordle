@@ -6,6 +6,9 @@
 .heading {
     padding-bottom: 10px;
     margin: 10px;
+    display: grid;
+    place-items: center;
+
 }
 h1 {
     font-size: 50px;
@@ -16,15 +19,23 @@ h1 {
 .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
     max-width: fit-content;
     margin: 10px;
+}
+
+.container {
+    display: grid;
+    place-content: center;
+    place-items: center;
 }
 
 .row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 2px;
+    gap: 3px;
 }
 
 input {
