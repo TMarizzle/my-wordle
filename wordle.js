@@ -114,6 +114,12 @@ submit.addEventListener('click', () => {
 
         if (checkWord.length < 5){
             isRowFull = false;
+            let currentDiv = document.getElementById(`guess${currentRow}`);
+            currentDiv.classList.add('shake');
+            void currentDiv.offsetWidth;
+            setTimeout(() => {
+                currentDiv.classList.remove('shake');
+            }, 500);
         }
 
         if (isRowFull){
@@ -132,9 +138,10 @@ submit.addEventListener('click', () => {
             } else {
                 let currentDiv = document.getElementById(`guess${currentRow}`);
                 currentDiv.classList.add('shake');
-                currentDiv.addEventListener('animationend',() => {
-                currentDiv.classList.remove('shake');
-                }, {once:true});
+                void currentDiv.offsetWidth;
+                setTimeout(() => {
+                    currentDiv.classList.remove('shake');
+                }, 500);
             }
         }
     } else if (guessRemain <= 0){
@@ -175,7 +182,12 @@ document.addEventListener('keyup', (e) => {
         let checkWord = getText();
         if (checkWord.length < 5){
             isRowFull = false;
-            alert("Please enter a 5 letter word.");
+            let currentDiv = document.getElementById(`guess${currentRow}`);
+            currentDiv.classList.add('shake');
+            void currentDiv.offsetWidth;
+            setTimeout(() => {
+                currentDiv.classList.remove('shake');
+            }, 500);
         }
 
         if (isRowFull){
@@ -194,9 +206,10 @@ document.addEventListener('keyup', (e) => {
             } else {
                 let currentDiv = document.getElementById(`guess${currentRow}`);
                 currentDiv.classList.add('shake');
-                currentDiv.addEventListener('animationend',() => {
-                currentDiv.classList.remove('shake');
-                }, {once:true});
+                void currentDiv.offsetWidth;
+                setTimeout(() => {
+                    currentDiv.classList.remove('shake');
+                }, 500);
             }
         }
     } else if (e.key === 'Enter' && guessRemain <= 0){
