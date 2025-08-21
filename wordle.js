@@ -52,23 +52,22 @@ function getText() {
 
 function keyHandler(key) {
     const activeElement = document.activeElement;
-    if (activeElement.tagName === 'INPUT'){
+    if (activeElement.tagName === 'INPUT' && key.length === 1 && key.match(/[a-z]/i)){
         let target = activeElement;
+        let next = target.nextElementSibling;
         let maxLength = parseInt(target.attributes["maxlength"].value, 10);
         let myLength = target.value.length;
     
-        if (key !== 'Enter' && key !== 'Backspace' && myLength >= maxLength){
-            let next = target.nextElementSibling;
-            if (next && next.tagName === 'INPUT'){
-                next.focus();
-            }
-        }
-
-        if (key === 'Backspace' && myLength === 0){
+        if (next && next.tagName === 'INPUT'){
+            next.focus();
+        } else if (activeElement.tagName === 'INPUT' && key === 'Backspace' && activeElement.value.length === 0){
             let previous = target.previousElementSibling;
             if (previous && previous.tagName === 'INPUT'){
                 previous.focus();
+                previous.value = '';
             }
+        } else if ((activeElement.tagName === 'INPUT' && key === 'Backspace' && activeElement.value.length > 0)) {
+            activeElement.value = '';
         }
     }
     if (key === 'Enter' && guessRemain > 0){
@@ -166,16 +165,10 @@ function compare () {
 document.querySelector('.keyboard').addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON'){
         let key = e.target.textContent;
-        key = key.toLowerCase();
-        const keyboardEvent = new KeyboardEvent('keyup', {
-            key: key,
-            bubbles: true
-        });
-        
-        const activeInput = document.activeElement;
-        if (activeInput.tagName === 'INPUT'){
-            activeInput.dispatchEvent(keyboardEvent);
+        if (key === 'Del'){
+            key = 'Backspace';
         }
+        keyHandler(key);
     }
 });
 
