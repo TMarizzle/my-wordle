@@ -6,7 +6,6 @@ const modalNewGameBtn = document.getElementById('modal-new-game');
 const loseModalBtn = document.getElementById('lose-new');
 const modalCloseBtn = document.getElementById('modal-close');
 const loseModalClose = document.getElementById('lose-close');
-const answerWordElement = document.querySelector('.answer-word');
 const numGuesses = 5;
 let currentRow = 1;
 let guessRemain = numGuesses;
@@ -15,11 +14,13 @@ console.log(wordToGuess);
 let userGuess = "";
 
 function showWinModal() {
-    answerWordElement.textContent = wordToGuess;
+    const winModalAnswer = winModal.querySelector('.answer-word');
+    winModalAnswer.textContent = wordToGuess;
     winModal.style.display = 'block';
 }
 function showLoseModal() {
-    answerWordElement.textContent = wordToGuess;
+    const loseModalAnswer = loseModal.querySelector('.answer-word');
+    loseModalAnswer.textContent = wordToGuess;
     loseModal.style.display = 'block';
 }
 
@@ -122,7 +123,7 @@ submit.addEventListener('click', () => {
 });
 let newGame = document.getElementById("new");
 newGame.addEventListener('click', () => {
-    location.reload(true);
+    window.location.reload();
 });
 
 //Add listener to each blank for keyup and move to next blank
@@ -172,13 +173,13 @@ document.addEventListener('keyup', (e) => {
 });
 
 modalNewGameBtn.addEventListener('click', () => {
-    location.reload(true);
+    window.location.reload();
 });
 modalCloseBtn.addEventListener('click', () => {
     winModal.style.display = 'none';
 });
 loseModalBtn.addEventListener('click', () => {
-    location.reload(true);
+    window.location.reload();
 });
 loseModalClose.addEventListener('click', () => {
     loseModal.style.display = 'none';
