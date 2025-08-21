@@ -50,6 +50,69 @@ function getText() {
     return userWord;
 }
 
+function keyHandler(key) {
+    const activeElement = document.activeElement;
+    if (activeElement.tagName === 'INPUT'){
+        let target = activeElement;
+        let maxLength = parseInt(target.attributes["maxlength"].value, 10);
+        let myLength = target.value.length;
+    
+        if (key !== 'Enter' && key !== 'Backspace' && myLength >= maxLength){
+            let next = target.nextElementSibling;
+            if (next && next.tagName === 'INPUT'){
+                next.focus();
+            }
+        }
+
+        if (key === 'Backspace' && myLength === 0){
+            let previous = target.previousElementSibling;
+            if (previous && previous.tagName === 'INPUT'){
+                previous.focus();
+            }
+        }
+    }
+    if (key === 'Enter' && guessRemain > 0){
+        //check if every input has something in it
+        let isRowFull = true;
+        let checkWord = getText();
+        if (checkWord.length < 5){
+            isRowFull = false;
+            let currentDiv = document.getElementById(`guess${currentRow}`);
+            currentDiv.classList.add('shake');
+            void currentDiv.offsetWidth;
+            setTimeout(() => {
+                currentDiv.classList.remove('shake');
+            }, 500);
+        }
+
+        if (isRowFull){
+            if (compare()){
+                //Auto focus to next row after user enters guess
+                if (userGuess !== wordToGuess){
+                    guessRemain--;
+                    toggleInputs(currentRow, false);
+                    currentRow++;
+                    toggleInputs(currentRow, true);
+
+                    let nextRow = document.getElementById(`guess${currentRow}`);
+                    let nextRowInput = nextRow.querySelector('input');
+                    nextRowInput.focus();
+                }
+            } else {
+                let currentDiv = document.getElementById(`guess${currentRow}`);
+                currentDiv.classList.add('shake');
+                void currentDiv.offsetWidth;
+                setTimeout(() => {
+                    currentDiv.classList.remove('shake');
+                }, 500);
+            }
+        }
+    } else if (key === 'Enter' && guessRemain <= 0){
+            showLoseModal();
+    }
+
+}
+
 function compare () {
     userGuess = getText();
     let isWord = WORDS.includes(userGuess);
@@ -100,70 +163,18 @@ function compare () {
     }
 }
 
-document.addEventListener('keyup', (e) => {
-    const activeElement = document.activeElement;
-    if (activeElement.tagName === 'INPUT'){
-        let target = activeElement;
-        let maxLength = parseInt(target.attributes["maxlength"].value, 10);
-        let myLength = target.value.length;
-    
-        if (e.key !== 'Enter' && e.key !== 'Backspace' && myLength >= maxLength){
-            let next = target.nextElementSibling;
-            if (next && next.tagName === 'INPUT'){
-                next.focus();
-            }
-        }
-
-        if (e.key === 'Backspace' && myLength === 0){
-            let previous = target.previousElementSibling;
-            if (previous && previous.tagName === 'INPUT'){
-                previous.focus();
-            }
-        }
-    }
-    if (e.key === 'Enter' && guessRemain > 0){
-        //check if every input has something in it
-        let isRowFull = true;
-        let checkWord = getText();
-        if (checkWord.length < 5){
-            isRowFull = false;
-            let currentDiv = document.getElementById(`guess${currentRow}`);
-            currentDiv.classList.add('shake');
-            void currentDiv.offsetWidth;
-            setTimeout(() => {
-                currentDiv.classList.remove('shake');
-            }, 500);
-        }
-
-        if (isRowFull){
-            if (compare()){
-                //Auto focus to next row after user enters guess
-                if (userGuess !== wordToGuess){
-                    guessRemain--;
-                    toggleInputs(currentRow, false);
-                    currentRow++;
-                    toggleInputs(currentRow, true);
-
-                    let nextRow = document.getElementById(`guess${currentRow}`);
-                    let nextRowInput = nextRow.querySelector('input');
-                    nextRowInput.focus();
-                }
-            } else {
-                let currentDiv = document.getElementById(`guess${currentRow}`);
-                currentDiv.classList.add('shake');
-                void currentDiv.offsetWidth;
-                setTimeout(() => {
-                    currentDiv.classList.remove('shake');
-                }, 500);
-            }
-        }
-    } else if (e.key === 'Enter' && guessRemain <= 0){
-            showLoseModal();
+document.querySelector('.keyboard').addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON'){
+        let key = e.target.textContent;
+        key = key.toLowerCase();
+        console.log(`Letter: ${key}`);
+        keyHandler(key);
     }
 });
 
-//Keyboard button listeners
-
+document.addEventListener('keyup', (e) => {
+    keyHandler(e.key);
+});
 
 modalNewGameBtn.addEventListener('click', () => {
     window.location.reload();
