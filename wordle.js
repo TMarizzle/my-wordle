@@ -50,25 +50,33 @@ function getText() {
     return userWord;
 }
 
-function keyHandler(key) {
+function keyHandler(key, event = null) {
     let activeElement = document.activeElement;
 
     if (key.length === 1 && key.match(/[a-z]/i)){
-        let inputs = document.querySelectorAll(`#guess${currentRow} input`);
-        let firstEmptyInput = null;
-
-        for (let i = 0; i < inputs.length; i++){
-            if (inputs[i].value === ''){
-                firstEmptyInput = inputs[i];
-                break;
+        if (event){
+            if (activeElement.tagName === 'INPUT' && activeElement.nextElementSibling){
+                let next = activeElement.nextElementSibling;
+                next.focus();
             }
         }
-        
-        if (firstEmptyInput){
-            firstEmptyInput.value = key;
-            let next = firstEmptyInput.nextElementSibling;
-            if (next && next.tagName === 'INPUT'){
-                next.focus();
+        else {
+            let inputs = document.querySelectorAll(`#guess${currentRow} input`);
+            let firstEmptyInput = null;
+
+            for (let i = 0; i < inputs.length; i++){
+                if (inputs[i].value === ''){
+                    firstEmptyInput = inputs[i];
+                    break;
+                }
+            }
+            
+            if (firstEmptyInput){
+                firstEmptyInput.value = key;
+                let next = firstEmptyInput.nextElementSibling;
+                if (next && next.tagName === 'INPUT'){
+                    next.focus();
+                }
             }
         }
     } else if (key === 'Backspace' || key === 'Del'){
@@ -199,7 +207,7 @@ document.querySelector('.keyboard').addEventListener('click', (e) => {
 });
 
 document.addEventListener('keyup', (e) => {
-    keyHandler(e.key);
+    keyHandler(e.key, e);
 });
 
 modalNewGameBtn.addEventListener('click', () => {
