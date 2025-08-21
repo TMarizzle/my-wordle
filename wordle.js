@@ -122,7 +122,7 @@ submit.addEventListener('click', () => {
 });
 let newGame = document.getElementById("new");
 newGame.addEventListener('click', () => {
-    location.reload();
+    location.reload(true);
 });
 
 //Add listener to each blank for keyup and move to next blank
@@ -172,13 +172,13 @@ document.addEventListener('keyup', (e) => {
 });
 
 modalNewGameBtn.addEventListener('click', () => {
-    location.reload();
+    location.reload(true);
 });
 modalCloseBtn.addEventListener('click', () => {
     winModal.style.display = 'none';
 });
 loseModalBtn.addEventListener('click', () => {
-    location.reload();
+    location.reload(true);
 });
 loseModalClose.addEventListener('click', () => {
     loseModal.style.display = 'none';
