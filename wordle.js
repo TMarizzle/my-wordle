@@ -8,6 +8,7 @@ const modalCloseBtn = document.getElementById('modal-close');
 const loseModalClose = document.getElementById('lose-close');
 const numGuesses = 5;
 const animateTime = 100;
+let nextLetter = 0;
 let currentRow = 1;
 let guessRemain = numGuesses;
 let wordToGuess = WORDS[Math.floor(Math.random() * WORDS.length)];
@@ -93,68 +94,12 @@ function compare () {
             showLoseModal();
             return true;
         }
-        
-        // if (userGuess !== wordToGuess){
-        //     guessRemain--;
-        //     toggleInputs(currentRow, false);
-        //     currentRow++;
-        //     toggleInputs(currentRow, true);
-        // }
         return true;
     } else {
         return false;
     }
 }
 
-// let submit = document.getElementById("submit");
-// submit.addEventListener('click', () => {
-//     if (guessRemain > 0){
-//         let isRowFull = true;
-//         let checkWord = getText();
-
-//         if (checkWord.length < 5){
-//             isRowFull = false;
-//             let currentDiv = document.getElementById(`guess${currentRow}`);
-//             currentDiv.classList.add('shake');
-//             void currentDiv.offsetWidth;
-//             setTimeout(() => {
-//                 currentDiv.classList.remove('shake');
-//             }, 500);
-//         }
-
-//         if (isRowFull){
-//             if (compare()){
-//                 //Auto focus to next row after user enters guess
-//                 if (userGuess !== wordToGuess){
-//                     guessRemain--;
-//                     toggleInputs(currentRow, false);
-//                     currentRow++;
-//                     toggleInputs(currentRow, true);
-
-//                     let nextRow = document.getElementById(`guess${currentRow}`);
-//                     let nextRowInput = nextRow.querySelector('input');
-//                     nextRowInput.focus();
-//                 }
-//             } else {
-//                 let currentDiv = document.getElementById(`guess${currentRow}`);
-//                 currentDiv.classList.add('shake');
-//                 void currentDiv.offsetWidth;
-//                 setTimeout(() => {
-//                     currentDiv.classList.remove('shake');
-//                 }, 500);
-//             }
-//         }
-//     } else if (guessRemain <= 0){
-//         showLoseModal();
-//     }
-// });
-// let newGame = document.getElementById("new");
-// newGame.addEventListener('click', () => {
-//     window.location.reload();
-// });
-
-//Add listener to each blank for keyup and move to next blank
-//once user has entered a letter
 document.addEventListener('keyup', (e) => {
     const activeElement = document.activeElement;
     if (activeElement.tagName === 'INPUT'){
@@ -216,6 +161,9 @@ document.addEventListener('keyup', (e) => {
             showLoseModal();
     }
 });
+
+//Keyboard button listeners
+
 
 modalNewGameBtn.addEventListener('click', () => {
     window.location.reload();
