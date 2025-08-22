@@ -266,4 +266,4 @@ for (let i=1; i <= 6; i++){
     toggleInputs(i, false);
 }
 toggleInputs(currentRow, true);
-document.querySelector(`#guess1 input`).focus();
+//document.querySelector(`#guess1 input`).focus();
