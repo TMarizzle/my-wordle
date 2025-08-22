@@ -145,90 +145,75 @@ function keyHandler(key, event = null) {
 function compare () {
     userGuess = getText();
     let isWord = WORDS.includes(userGuess);
-    if (isWord){
-        let guess = userGuess.split('');
-        let answer = wordToGuess.split('');
-        let currentLine = document.getElementById(`guess${currentRow}`);
-        let currentLetter = currentLine.querySelectorAll('input');
-        let tempAnswer = [...answer];
-        let isCorrect = [];
+    if (!isWord) return false;
 
-        const allKeyboardBtns = document.querySelectorAll('.keyboard button');
+    let guess = userGuess.split('');
+    let answer = wordToGuess.split('');
+    let currentLine = document.getElementById(`guess${currentRow}`);
+    let currentLetter = currentLine.querySelectorAll('input');
+    let tempAnswer = [...answer];
+    let isCorrect = Array(guess.length).fill(false);
+    const allKeyboardBtns = document.querySelectorAll('.keyboard button');
 
-        //check if letter is in correct place then change background to green if it is
-        for (let i=0; i < guess.length; i++){
-            let letter = guess[i];
-            let cell = currentLetter[i];
-            if (letter === tempAnswer[i]){
-                cell.style.backgroundColor = "rgba(55, 146, 12, 1)";
-                tempAnswer[i] = null;
-                isCorrect[i] = true;
-
-                let keyboardButton = null;
-                for (let btn of allKeyboardBtns){
-                    if (btn.textContent.toLowerCase() === letter.toLowerCase()){
-                        keyboardButton = btn;
-                        break;
-                    }
-                }
-                if (keyboardButton && !keyboardButton.classList.contains('yellow')){
-                    keyboardButton.classList.add('green');
-                } else if (keyboardButton && keyboardButton.classList.contains('yellow')){
-                    keyboardButton.classList.remove('yellow');
-                    keyboardButton.classList.add('green');
-                }
-            }
+    // First pass: mark greens
+    for (let i = 0; i < guess.length; i++) {
+        if (guess[i] === tempAnswer[i]) {
+            isCorrect[i] = true;
+            tempAnswer[i] = null;
         }
-            
-        for (let i = 0; i< guess.length; i++) {
-            let letter = guess[i];
-            let cell = currentLetter[i];
-            //If letter already exists, check if it's been marked correct
-            if (!isCorrect[i]){
-                //if it's not correct then check if letter exists and mark it yellow or gray
-                if (tempAnswer.includes(letter)){
-                    cell.style.backgroundColor = "rgba(197, 174, 44, 1)";
-                    tempAnswer[tempAnswer.indexOf(letter)] = null;
-
-                    let keyboardBtn = null;
-                    for (let btn of allKeyboardBtns){
-                        if (btn.textContent.toLowerCase() === letter.toLowerCase()){
-                            keyboardBtn = btn;
-                            break;
-                        }
-                    }
-                    if (keyboardBtn && !keyboardBtn.classList.contains('green')){
-                        keyboardBtn.classList.add('yellow');
-                    }
-                } else {
-                    cell.style.backgroundColor = "rgba(122, 122, 126, 0.93)";
-
-                    let keyboardButton = null;
-                    for (let btn of allKeyboardBtns){
-                        if (btn.textContent.toLowerCase() === letter.toLowerCase()){
-                            keyboardButton = btn;
-                            break;
-                        }
-                    }
-                    if (keyboardButton && !keyboardButton.classList.contains('green') && !keyboardButton.classList.contains('yellow')){
-                        keyboardButton.classList.add('gray');
-                    }
-                }
-                
-            }
-        }
-
-        if (userGuess == wordToGuess){
-            showWinModal();
-            return true;
-        } else if (guessRemain <= 1){
-            showLoseModal();
-            return true;
-        }
-        return true;
-    } else {
-        return false;
     }
+
+    // Sequential flip animation
+    guess.forEach((letter, i) => {
+        let cell = currentLetter[i];
+        let delay = i * 350; // ms between flips
+
+        setTimeout(() => {
+            let color, kbClass;
+            if (isCorrect[i]) {
+                color = "rgba(55, 146, 12, 1)";
+                kbClass = "green";
+            } else if (tempAnswer.includes(letter)) {
+                color = "rgba(197, 174, 44, 1)";
+                kbClass = "yellow";
+                tempAnswer[tempAnswer.indexOf(letter)] = null;
+            } else {
+                color = "rgba(122, 122, 126, 0.93)";
+                kbClass = "gray";
+            }
+
+            cell.style.setProperty('--reveal-color', color);
+            cell.classList.add('flip');
+            setTimeout(() => {
+                cell.classList.remove('flip');
+                cell.style.backgroundColor = color;
+            }, 600);
+
+            // Keyboard coloring
+            let kbBtn = Array.from(allKeyboardBtns).find(btn => btn.textContent.toLowerCase() === letter.toLowerCase());
+            if (kbBtn) {
+                if (kbClass === "green") {
+                    kbBtn.classList.remove("yellow");
+                    kbBtn.classList.add("green");
+                } else if (kbClass === "yellow" && !kbBtn.classList.contains("green")) {
+                    kbBtn.classList.add("yellow");
+                } else if (kbClass === "gray" && !kbBtn.classList.contains("green") && !kbBtn.classList.contains("yellow")) {
+                    kbBtn.classList.add("gray");
+                }
+            }
+        }, delay);
+    });
+
+    // Show modal after all flips
+    let totalDelay = guess.length * 350;
+    if (userGuess == wordToGuess) {
+        setTimeout(showWinModal, totalDelay);
+        return true;
+    } else if (guessRemain <= 1) {
+        setTimeout(showLoseModal, totalDelay);
+        return true;
+    }
+    return true;
 }
 
 document.querySelector('.keyboard').addEventListener('click', (e) => {

@@ -102,6 +102,13 @@ input {
     caret-color: transparent;
     text-transform: capitalize;
 }
+
+input.flip {
+    animation: flip 0.6s ease;
+    backface-visibility: hidden;
+    /* Optional for smoother effect */
+    transition: background-color 0.2s;
+}
 button {
     background-color: rgb(3, 16, 20);
     padding: 10px;
@@ -152,5 +159,22 @@ button {
     }
     40%, 80% {
         transform: translateX(10px);
+    }
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(90deg);
+        background-color: inherit; /* Hide color at halfway */
+    }
+    51% {
+        background-color: var(--reveal-color, inherit); /* Reveal color */
+    }
+    100% {
+        transform: rotateY(0deg);
+        background-color: var(--reveal-color, inherit);
     }
 }
