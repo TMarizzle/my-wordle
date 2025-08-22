@@ -90,10 +90,10 @@ h1 {
 input {
     border-radius: 10px;
     display: flex;
-    height: 1.5em;
+    height: 2em;
     width: 100%;
-    max-width: 3em;
-    font-size: 1.2em;
+    max-width: 3.5em;
+    font-size: 2em;
     font-weight: 700;
     text-align: center;
     box-sizing: border-box;
