@@ -60,11 +60,11 @@ h1 {
 }
 
 .keyboard button.wide-key {
-    flex: 2 1 0;
-    max-width: 110px;
+    flex: 1.5 1 0;
+    max-width: 100px;
     height: 70px;
     max-height: 90px;
-    font-size: min(2.5vw, 1.5rem);
+    font-size: min(2vw, 1.2rem);
     padding: 0.6rem;
 }
 
