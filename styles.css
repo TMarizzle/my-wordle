@@ -3,12 +3,6 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(216, 218, 215);
 }
-.heading {
-    padding-bottom: 10px;
-    margin: 10px;
-    display: grid;
-    place-items: center;
-}
 h1 {
     font-size: 50px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -23,14 +17,12 @@ h1 {
     gap: 7px;
     max-width: 500px;
     margin: 10px;
-    border: 1px solid green;
 }
 
 .container {
     display: grid;
     place-content: center;
     place-items: center;
-    border: 1px solid blue;
 }
 
 .keyboard {
@@ -41,7 +33,6 @@ h1 {
     height: 200px;
     width: 100%;
     max-width: 700px;
-    border: 1px solid red;
 }
 
 .keyboard div {
@@ -58,7 +49,7 @@ h1 {
 .keyboard button {
     flex: 1 1 0;
     min-width: 0;
-    font-size: 2vw;
+    font-size: 5vw;
     font-weight: 700;
     padding: 0.4rem;
     cursor: pointer;
@@ -67,7 +58,7 @@ h1 {
 
 .keyboard button.wide-key {
     flex: 2 1 0;
-    font-size: 1.5vw;
+    font-size: 3vw;
     padding: 0.6rem;
 }
 
