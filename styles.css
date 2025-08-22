@@ -47,9 +47,9 @@ h1 {
 }
 
 .keyboard-button {
-    font-size: 1rem;
+    font-size: 3rem;
     font-weight: 700;
-    padding: 0.5rem;
+    padding: 0.8rem;
     margin: 0 2px;
     cursor: pointer;
     text-transform: uppercase;
@@ -78,7 +78,7 @@ h1 {
 input {
     border-radius: 10px;
     display: flex;
-    height: 3em;
+    height: 2em;
     width: 100%;
     max-width: 4em;
     font-size: 2em;
